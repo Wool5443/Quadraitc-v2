@@ -18,22 +18,11 @@ struct Equation
 };
 
 /**
- * @brief Solves the given equation and stores the roots in it.
+ * @brief Solves a given linear or quadratic equation and stores the roots in it.
  *
- * @param [in, out] equation is the quadratic or linear equation to solve. Answer is stored inside.
- *
- * @return whether it went fine.
+ * @param [in, out] equation - the equation to solve which contains coefficients. The roots are stored inside.
  */
-void solveQuadratic(Equation* equation);
-
-/**
- * @brief solves the given linear equation and stores its root in it.
- *
- * @param [in, out] equation is the linear equation to solve. Answer is stored inside.
- *
- * @return whether it went fine.
- */
-void solveLinear(Equation* equation);
+void solveEquation(Equation* equation);
 
 /**
  * @brief Takes coefficients from user and stores them in the equation.

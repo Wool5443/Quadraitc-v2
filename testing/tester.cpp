@@ -43,7 +43,7 @@ void testAll(const char* testFile)
 		}
 
 		copyArray(equation.coefficients, testData.coefficients, NUMBER_OF_COEFFICIENTS);
-		solveQuadratic(&equation);
+		solveEquation(&equation);
 
 		if (checkSolution(&equation, &testData) == 1)
 		{

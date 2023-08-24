@@ -4,44 +4,46 @@
 #include "solve_quadratic.hpp"
 #include "utils.hpp"
 
-void solveQuadratic(Equation* equation)
+void solveQuadratic(Equation* equation);
+
+void solveLinear(Equation* equation);
+
+void solveEquation(Equation* equation)
 {
     myAssertHard(equation, ERROR_NULLPTR);
     for (int i = 0; i < NUMBER_OF_COEFFICIENTS; i++)
         myAssertHard(isfinite(equation->coefficients[i]), ERROR_BAD_NUMBER);
 
+    if (isEqual(equation->coefficients[0], 0))
+        solveLinear(equation);
+    else
+        solveQuadratic(equation);
+}
+
+void solveQuadratic(Equation* equation)
+{
     double a = equation->coefficients[0];
     double b = equation->coefficients[1];
     double c = equation->coefficients[2];
 
-    if (isEqual(a, 0))
-        solveLinear(equation);
+    double discr = b * b - 4 * a * c;
+    if (isEqual(discr, 0))
+        *equation = { .roots = {-b / (2 * a), NAN},
+                      .numberOfRoots = ONE_ROOT };
+    else if (discr < 0)
+        *equation = { .roots = {NAN, NAN},
+                      .numberOfRoots = ZERO_ROOTS };
     else
     {
-        double discr = b * b - 4 * a * c;
-
-        if (isEqual(discr, 0))
-            *equation = { .roots = {-b / (2 * a), NAN},
-                          .numberOfRoots = ONE_ROOT };
-        else if (discr < 0)
-            *equation = { .roots = {NAN, NAN},
-                          .numberOfRoots = ZERO_ROOTS };
-        else
-        {
-            double sqrtDiscr = sqrt(discr);
-            *equation = { .roots = {(-b - sqrtDiscr) / (2 * a),
-                                    (-b + sqrtDiscr) / (2 * a)},
-                          .numberOfRoots = TWO_ROOTS };
-        }
+        double sqrtDiscr = sqrt(discr);
+        *equation = { .roots = {(-b - sqrtDiscr) / (2 * a),
+                                (-b + sqrtDiscr) / (2 * a)},
+                      .numberOfRoots = TWO_ROOTS };
     }
 }
 
 void solveLinear(Equation* equation)
 {
-    myAssertHard(equation, ERROR_NULLPTR);
-    for (int i = NUMBER_OF_COEFFICIENTS - COEFF_SHIFT_FOR_LINEAR; i < NUMBER_OF_COEFFICIENTS; i++)
-        myAssertHard(isfinite(equation->coefficients[i]), ERROR_BAD_NUMBER);
-
     double b = equation->coefficients[1];
     double c = equation->coefficients[2];
 

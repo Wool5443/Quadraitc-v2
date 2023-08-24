@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
     {
         Equation equation = {};
         inputEquation(&equation);
-        solveQuadratic(&equation);
+        solveEquation(&equation);
         printAnswer(&equation);
     }
 
