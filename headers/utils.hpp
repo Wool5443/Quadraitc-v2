@@ -63,6 +63,14 @@ void CopyArray(double destination[], double source[], int length);
 void ClearBuffer(void);
 
 /**
+ * @brief Check if the user input contains anything but scanned data.
+ *
+ * @return true Everything is clear.
+ * @return false User entered something odd.
+ */
+bool CheckInput(void);
+
+/**
  * @brief Set the color of either stderr or stdout
  *
  * @param place - stderr or stdout

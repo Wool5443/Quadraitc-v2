@@ -72,7 +72,7 @@ void InputEquation(Equation* equation)
     printf("Input the coefficients of the equation: ");
 
     while (scanf("%lf %lf %lf", equation->coefficients, equation->coefficients + 1, equation->coefficients + 2) != 3
-        || getchar() != '\n')
+        || !CheckInput())
     {
         printf("Invalid input, try again: ");
         ClearBuffer();

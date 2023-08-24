@@ -25,6 +25,14 @@ void ClearBuffer(void)
 	while (getchar() != '\n') { ; }
 }
 
+bool CheckInput()
+{
+	int c = getchar();
+	while (c == ' ') { c = getchar(); }
+
+	return c == '\n';
+}
+
 void SetConsoleColor(FILE* place, enum Color color)
 {
 	switch (color)
