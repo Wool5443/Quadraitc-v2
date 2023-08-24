@@ -12,13 +12,9 @@
 
 const double ABSOLUTE_TOLERANCE = 1e-5;
 
-Compare realCompare(const double x1, const double x2) // make it return enum LESS, EQUAL, MORE
+bool isEqual(const double x1, const double x2) // make it return enum LESS, EQUAL, MORE
 {
-	if (fabs(x1 - x2) < ABSOLUTE_TOLERANCE)
-		return EQUAL;
-	if (x1 < x2)
-		return LESS;
-	return MORE;
+	return fabs(x1 - x2) < ABSOLUTE_TOLERANCE;
 }
 
 void copyArray(double destination[], double source[], int length)

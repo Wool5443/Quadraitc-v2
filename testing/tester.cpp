@@ -1,48 +1,54 @@
 #include <stdio.h>
 #include <math.h>
-#include "../headers/tester.h"
+#include "tester.h"
 #include "../headers/solve_quadratic.h"
 #include "../headers/utils.h"
 
-bool checkSolution(Equation* solution, double correctRoots[], NumberOfRoots numberOfRoots);
+bool checkSolution(Equation* solution, Equation* testData);
 
-void test(const char* testFile)
+void testAll(const char* testFile)
 {
 	FILE* file = fopen(testFile, "r");
 
-	Equation equation = {};
+	if (file == NULL)
+	{
+		puts("Test file not found :(");
+		return;
+	}
 
-	double coeffs[NUMBER_OF_COEFFICIENTS] = {}, correctRoots[MAX_NUMBER_OF_ROOTS] = {};
 
 	int numberOfPassedTests = 0, numberOfAllTests = 0;
-
-	NumberOfRoots numberOfRoots = ZERO_ROOTS;
 
 	fscanf(file, "%d", &numberOfAllTests);
 
 	for (int i = 0; i < numberOfAllTests; i++)
 	{
-		fscanf(file, "%lf %lf %lf %d", coeffs, coeffs + 1, coeffs + 2, (int*)&numberOfRoots);
-		switch (numberOfRoots)
+		Equation equation = {};
+		Equation testData = {};
+
+		fscanf(file, "%lf %lf %lf %d", testData.coefficients, testData.coefficients + 1, testData.coefficients + 2,
+			(int*)&testData.numberOfRoots);
+
+		switch (testData.numberOfRoots)
 		{
 		case -1:
 		case 0:
 			break;
 		case 1:
-			fscanf(file, "%lf", correctRoots);
+			fscanf(file, "%lf", testData.roots);
 			break;
 		case 2:
-			fscanf(file, "%lf %lf", correctRoots, correctRoots + 1);
+			fscanf(file, "%lf %lf", testData.roots, testData.roots + 1);
 			break;
 		default:
 			fprintf(stderr, "BAD TEST %d!!!\n", i + 1);
 			break;
 		}
 
-		copyArray(equation.coefficients, coeffs, NUMBER_OF_COEFFICIENTS);
+		copyArray(equation.coefficients, testData.coefficients, NUMBER_OF_COEFFICIENTS);
 		solveQuadratic(&equation);
 
-		if (checkSolution(&equation, correctRoots, numberOfRoots))
+		if (checkSolution(&equation, &testData))
 		{
 			setConsoleColor(GREEN);
 			printf("Test number %d is successful! %.2f%% of tests have been run!\n", i + 1,
@@ -75,15 +81,14 @@ void test(const char* testFile)
 	}
 }
 
-bool checkSolution(Equation* solution, double correctRoots[], NumberOfRoots numberOfRoots)
+bool checkSolution(Equation* solution, Equation* testData)
 {
 	myAssert(solution, ERROR_NULLPTR);
 
-	if (solution->numberOfRoots != numberOfRoots)
+	if (solution->numberOfRoots != testData->numberOfRoots)
 		return false;
-	for (int i = 0; i < numberOfRoots; i++)
-		if (realCompare(solution->roots[i], correctRoots[i]) != EQUAL)
+	for (int i = 0; i < testData->numberOfRoots; i++)
+		if (!isEqual(solution->roots[i], testData->roots[i]))
 			return false;
 	return true;
 }
-

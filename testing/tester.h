@@ -1,6 +1,6 @@
 #ifndef TESTER_H
 #define TESTER_H
 
-void test(const char* fileName);
+void testAll(const char* fileName);
 
 #endif

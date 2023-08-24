@@ -5,10 +5,7 @@ enum Color { RED, GREEN, WHITE };
 
 enum ErrorCode { ERROR_NULLPTR = 1, ERROR_BAD_NUMBER };
 
-enum Compare { LESS, EQUAL, MORE };
-
-
-Compare realCompare(const double x1, const double x2);
+bool isEqual(const double x1, const double x2);
 
 void copyArray(double destination[], double source[], int length);
 

@@ -12,30 +12,23 @@ void solveQuadratic(Equation* equation)
 
     double a = equation->coefficients[0], b = equation->coefficients[1], c = equation->coefficients[2];
 
-    if (realCompare(a, 0) == EQUAL)
+    if (isEqual(a, 0))
         solveLinear(equation);
     else
     {
         double discr = b * b - 4 * a * c;
 
-        if (realCompare(discr, 0) == EQUAL)
-        {
-            equation->roots[0] = -b / (2 * a);
-            equation->roots[1] = NAN;
-            equation->numberOfRoots = ONE_ROOT;
-        }
+        if (isEqual(discr, 0))
+            *equation = { .roots = {-b / (2 * a), NAN},
+                          .numberOfRoots = ONE_ROOT };
         else if (discr < 0)
-        {
-            equation->roots[0] = NAN;
-            equation->roots[1] = NAN;
-            equation->numberOfRoots = ZERO_ROOTS;
-        }
+            *equation = { .roots = {NAN, NAN},
+                          .numberOfRoots = ZERO_ROOTS };
         else
         {
             double sqrtDiscr = sqrt(discr);
-            equation->roots[0] = (-b - sqrtDiscr) / (2 * a);
-            equation->roots[1] = (-b + sqrtDiscr) / (2 * a);
-            equation->numberOfRoots = TWO_ROOTS;
+            *equation = { .roots = {(-b - sqrtDiscr) / (2 * a), (-b + sqrtDiscr) / (2 * a)},
+                          .numberOfRoots = TWO_ROOTS };
         }
     }
 }
@@ -48,24 +41,21 @@ void solveLinear(Equation* equation)
 
     double b = equation->coefficients[1], c = equation->coefficients[2];
 
-    if (realCompare(b, 0) == EQUAL)
-        if (realCompare(c, 0) == EQUAL)
+    if (isEqual(b, 0))
+        if (isEqual(c, 0))
         {
-            equation->roots[0] = NAN;
-            equation->roots[1] = NAN;
-            equation->numberOfRoots = INFINITE_ROOTS;
+            *equation = { .roots = {NAN, NAN},
+                          .numberOfRoots = INFINITE_ROOTS };
         }
         else
         {
-            equation->roots[0] = NAN;
-            equation->roots[1] = NAN;
-            equation->numberOfRoots = ZERO_ROOTS;
+            *equation = { .roots = {NAN, NAN},
+                          .numberOfRoots = ZERO_ROOTS };
         }
     else
     {
-        equation->roots[0] = -c / b;
-        equation->roots[1] = NAN;
-        equation->numberOfRoots = ONE_ROOT;
+        *equation = { .roots = {-c / b, NAN},
+                          .numberOfRoots = ONE_ROOT };
     }
 }
 
