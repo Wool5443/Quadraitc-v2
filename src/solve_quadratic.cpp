@@ -1,16 +1,18 @@
 #include <math.h>
 #include <assert.h>
 #include <stdio.h>
-#include "../headers/solve_quadratic.h"
-#include "../headers/utils.h"
+#include "solve_quadratic.h"
+#include "utils.h"
 
-void solveQuadratic(Equation* equation)
+int solveQuadratic(Equation* equation)
 {
     myAssert(equation, ERROR_NULLPTR);
     for (int i = 0; i < NUMBER_OF_COEFFICIENTS; i++)
         myAssert(isfinite(equation->coefficients[i]), ERROR_BAD_NUMBER);
 
-    double a = equation->coefficients[0], b = equation->coefficients[1], c = equation->coefficients[2];
+    double a = equation->coefficients[0];
+    double b = equation->coefficients[1];
+    double c = equation->coefficients[2];
 
     if (isEqual(a, 0))
         solveLinear(equation);
@@ -27,19 +29,23 @@ void solveQuadratic(Equation* equation)
         else
         {
             double sqrtDiscr = sqrt(discr);
-            *equation = { .roots = {(-b - sqrtDiscr) / (2 * a), (-b + sqrtDiscr) / (2 * a)},
+            *equation = { .roots = {(-b - sqrtDiscr) / (2 * a),
+                                    (-b + sqrtDiscr) / (2 * a)},
                           .numberOfRoots = TWO_ROOTS };
         }
     }
+
+    return EVERYTHING_FINE;
 }
 
-void solveLinear(Equation* equation)
+int solveLinear(Equation* equation)
 {
     myAssert(equation, ERROR_NULLPTR);
-    for (int i = 1; i < NUMBER_OF_COEFFICIENTS; i++)
-        assert(isfinite(equation->coefficients[i]));
+    for (int i = NUMBER_OF_COEFFICIENTS - COEFF_SHIFT_FOR_LINEAR; i < NUMBER_OF_COEFFICIENTS; i++)
+        myAssert(isfinite(equation->coefficients[i]), ERROR_BAD_NUMBER);
 
-    double b = equation->coefficients[1], c = equation->coefficients[2];
+    double b = equation->coefficients[1];
+    double c = equation->coefficients[2];
 
     if (isEqual(b, 0))
         if (isEqual(c, 0))
@@ -55,11 +61,13 @@ void solveLinear(Equation* equation)
     else
     {
         *equation = { .roots = {-c / b, NAN},
-                          .numberOfRoots = ONE_ROOT };
+                      .numberOfRoots = ONE_ROOT };
     }
+
+    return EVERYTHING_FINE;
 }
 
-void inputEquation(Equation* equation)
+int inputEquation(Equation* equation)
 {
     myAssert(equation, ERROR_NULLPTR);
 
@@ -71,9 +79,11 @@ void inputEquation(Equation* equation)
         printf("Invalid input, try again: ");
         clearBuffer();
     }
+
+    return EVERYTHING_FINE;
 }
 
-void printAnswer(const Equation* equation)
+int printAnswer(const Equation* equation)
 {
     myAssert(equation, ERROR_NULLPTR);
 
@@ -95,4 +105,6 @@ void printAnswer(const Equation* equation)
         printf("ERROR!!! Wrong number of roots: %d\n", equation->numberOfRoots);
         break;
     }
+
+    return EVERYTHING_FINE;
 }

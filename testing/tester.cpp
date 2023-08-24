@@ -1,21 +1,15 @@
 #include <stdio.h>
 #include <math.h>
 #include "tester.h"
-#include "../headers/solve_quadratic.h"
-#include "../headers/utils.h"
+#include "solve_quadratic.h"
+#include "utils.h"
 
 bool checkSolution(Equation* solution, Equation* testData);
 
-void testAll(const char* testFile)
+int testAll(const char* testFile)
 {
 	FILE* file = fopen(testFile, "r");
-
-	if (file == NULL)
-	{
-		puts("Test file not found :(");
-		return;
-	}
-
+	myAssert(file, ERROR_BAD_FILE);
 
 	int numberOfPassedTests = 0, numberOfAllTests = 0;
 
@@ -26,18 +20,21 @@ void testAll(const char* testFile)
 		Equation equation = {};
 		Equation testData = {};
 
-		fscanf(file, "%lf %lf %lf %d", testData.coefficients, testData.coefficients + 1, testData.coefficients + 2,
+		fscanf(file, "%lf %lf %lf %d",
+			testData.coefficients,
+			testData.coefficients + 1,
+			testData.coefficients + 2,
 			(int*)&testData.numberOfRoots);
 
 		switch (testData.numberOfRoots)
 		{
-		case -1:
-		case 0:
+		case INFINITE_ROOTS:
+		case ZERO_ROOTS:
 			break;
-		case 1:
+		case ONE_ROOT:
 			fscanf(file, "%lf", testData.roots);
 			break;
-		case 2:
+		case TWO_ROOTS:
 			fscanf(file, "%lf %lf", testData.roots, testData.roots + 1);
 			break;
 		default:
@@ -48,20 +45,20 @@ void testAll(const char* testFile)
 		copyArray(equation.coefficients, testData.coefficients, NUMBER_OF_COEFFICIENTS);
 		solveQuadratic(&equation);
 
-		if (checkSolution(&equation, &testData))
+		if (checkSolution(&equation, &testData) == 1)
 		{
-			setConsoleColor(GREEN);
+			setConsoleColor(stdout, GREEN);
 			printf("Test number %d is successful! %.2f%% of tests have been run!\n", i + 1,
 				(double)(i + 1) / numberOfAllTests * 100);
-			setConsoleColor(WHITE);
+			setConsoleColor(stdout, WHITE);
 			numberOfPassedTests++;
 		}
 		else
 		{
-			setConsoleColor(RED);
+			setConsoleColor(stdout, RED);
 			printf("Test number %d failed!!!!!!!! %.2f%% of tests have been run!\n", i + 1,
 				(double)(i + 1) / numberOfAllTests * 100);
-			setConsoleColor(WHITE);
+			setConsoleColor(stdout, WHITE);
 		}
 	}
 
@@ -69,21 +66,24 @@ void testAll(const char* testFile)
 
 	if (numberOfPassedTests == numberOfAllTests)
 	{
-		setConsoleColor(GREEN);
+		setConsoleColor(stdout, GREEN);
 		printf("ALL TESTS ARE WORKING PURRRFECTLY!!!\n");
-		setConsoleColor(WHITE);
+		setConsoleColor(stdout, WHITE);
 	}
 	else
 	{
-		setConsoleColor(RED);
+		setConsoleColor(stdout, RED);
 		printf("ONLY %.0f%% OF TESTS PASSED!!!\n", (double)numberOfPassedTests / numberOfAllTests * 100);
-		setConsoleColor(WHITE);
+		setConsoleColor(stdout, WHITE);
 	}
+
+	return EVERYTHING_FINE;
 }
 
 bool checkSolution(Equation* solution, Equation* testData)
 {
 	myAssert(solution, ERROR_NULLPTR);
+	myAssert(testData, ERROR_NULLPTR);
 
 	if (solution->numberOfRoots != testData->numberOfRoots)
 		return false;
