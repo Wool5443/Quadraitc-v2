@@ -23,7 +23,6 @@ void test(const char* testFile)
 	for (int i = 0; i < numberOfAllTests; i++)
 	{
 		fscanf(file, "%lf %lf %lf %d", coeffs, coeffs + 1, coeffs + 2, (int*)&numberOfRoots);
-
 		switch (numberOfRoots)
 		{
 		case -1:
