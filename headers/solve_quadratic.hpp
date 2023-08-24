@@ -22,7 +22,7 @@ struct Equation
  *
  * @param [in, out] equation - the equation to solve which contains coefficients. The roots are stored inside.
  */
-void solveEquation(Equation* equation);
+void SolveEquation(Equation* equation);
 
 /**
  * @brief Takes coefficients from user and stores them in the equation.
@@ -31,7 +31,7 @@ void solveEquation(Equation* equation);
  *
  * @return wheter it went fine.
  */
-void inputEquation(Equation* equation); //takes input from user and stores it in a, b, c
+void InputEquation(Equation* equation); //takes input from user and stores it in a, b, c
 
 /**
  * @brief Prints the roots of the equation.
@@ -40,6 +40,6 @@ void inputEquation(Equation* equation); //takes input from user and stores it in
  *
  * @return whether it went fine @see ErrorCodes
  */
-void printAnswer(const Equation* equation); //prints all the roots of the equation if given an Answer
+void PrintAnswer(const Equation* equation); //prints all the roots of the equation if given an Answer
 
 #endif

@@ -8,6 +8,6 @@
  *
  * @param fileName - the test file
  */
-void testAll(const char* fileName);
+void TestAll(const char* fileName);
 
 #endif

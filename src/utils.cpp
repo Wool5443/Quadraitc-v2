@@ -6,12 +6,12 @@
 
 const double ABSOLUTE_TOLERANCE = 1e-5;
 
-bool isEqual(const double x1, const double x2)
+bool IsEqual(const double x1, const double x2)
 {
 	return fabs(x1 - x2) < ABSOLUTE_TOLERANCE;
 }
 
-void copyArray(double destination[], double source[], int length)
+void CopyArray(double destination[], double source[], int length)
 {
 	myAssertHard(destination, ERROR_NULLPTR);
 	myAssertHard(source, ERROR_NULLPTR);
@@ -20,12 +20,12 @@ void copyArray(double destination[], double source[], int length)
 		destination[i] = source[i];
 }
 
-void clearBuffer(void)
+void ClearBuffer(void)
 {
 	while (getchar() != '\n') { ; }
 }
 
-void setConsoleColor(FILE* place, enum Color color)
+void SetConsoleColor(FILE* place, enum Color color)
 {
 	switch (color)
 	{

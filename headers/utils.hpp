@@ -4,7 +4,7 @@
 #define UTILS_H
 
 /**
- * @brief Represents colors for @see setConsoleColor
+ * @brief Represents colors for @see SetConsoleColor
  */
 enum Color { RED, GREEN, WHITE };
 
@@ -22,9 +22,9 @@ enum ErrorCode { EVERYTHING_FINE = 0, ERROR_NULLPTR = 100, ERROR_BAD_NUMBER, ERR
 #define myAssertHard(STATEMENT, ERR_CODE)                                                                     \
 if (!(STATEMENT))                                                                                             \
 {                                                                                                             \
-    setConsoleColor(stderr, RED);                                                                             \
+    SetConsoleColor(stderr, RED);                                                                             \
     fprintf(stderr, "ERROR %d in %s in %s in line: %d\n", ERR_CODE, __FILE__, __PRETTY_FUNCTION__, __LINE__); \
-    setConsoleColor(stderr, WHITE);                                                                           \
+    SetConsoleColor(stderr, WHITE);                                                                           \
     exit(ERR_CODE);                                                                                           \
 }
 
@@ -46,7 +46,7 @@ if (!(STATEMENT))                                                               
   * @return true The numbers are equal.
   * @return false The numbers are not equal.
   */
-bool isEqual(const double x1, const double x2);
+bool IsEqual(const double x1, const double x2);
 
 /**
  * @brief Copies <length> element from source to destination starting at zero index.
@@ -55,12 +55,12 @@ bool isEqual(const double x1, const double x2);
  * @param source
  * @param length
  */
-void copyArray(double destination[], double source[], int length);
+void CopyArray(double destination[], double source[], int length);
 
 /**
  * @brief Clears stdin.
  */
-void clearBuffer(void);
+void ClearBuffer(void);
 
 /**
  * @brief Set the color of either stderr or stdout
@@ -68,6 +68,6 @@ void clearBuffer(void);
  * @param place - stderr or stdout
  * @param color - @see Color
  */
-void setConsoleColor(FILE* place, enum Color color);
+void SetConsoleColor(FILE* place, enum Color color);
 
 #endif

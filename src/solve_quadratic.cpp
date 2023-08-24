@@ -8,13 +8,13 @@ void solveQuadratic(Equation* equation);
 
 void solveLinear(Equation* equation);
 
-void solveEquation(Equation* equation)
+void SolveEquation(Equation* equation)
 {
     myAssertHard(equation, ERROR_NULLPTR);
     for (int i = 0; i < NUMBER_OF_COEFFICIENTS; i++)
         myAssertHard(isfinite(equation->coefficients[i]), ERROR_BAD_NUMBER);
 
-    if (isEqual(equation->coefficients[0], 0))
+    if (IsEqual(equation->coefficients[0], 0))
         solveLinear(equation);
     else
         solveQuadratic(equation);
@@ -27,7 +27,7 @@ void solveQuadratic(Equation* equation)
     double c = equation->coefficients[2];
 
     double discr = b * b - 4 * a * c;
-    if (isEqual(discr, 0))
+    if (IsEqual(discr, 0))
         *equation = { .roots = {-b / (2 * a), NAN},
                       .numberOfRoots = ONE_ROOT };
     else if (discr < 0)
@@ -47,8 +47,8 @@ void solveLinear(Equation* equation)
     double b = equation->coefficients[1];
     double c = equation->coefficients[2];
 
-    if (isEqual(b, 0))
-        if (isEqual(c, 0))
+    if (IsEqual(b, 0))
+        if (IsEqual(c, 0))
         {
             *equation = { .roots = {NAN, NAN},
                           .numberOfRoots = INFINITE_ROOTS };
@@ -65,7 +65,7 @@ void solveLinear(Equation* equation)
     }
 }
 
-void inputEquation(Equation* equation)
+void InputEquation(Equation* equation)
 {
     myAssertHard(equation, ERROR_NULLPTR);
 
@@ -75,11 +75,11 @@ void inputEquation(Equation* equation)
         || getchar() != '\n')
     {
         printf("Invalid input, try again: ");
-        clearBuffer();
+        ClearBuffer();
     }
 }
 
-void printAnswer(const Equation* equation)
+void PrintAnswer(const Equation* equation)
 {
     myAssertHard(equation, ERROR_NULLPTR);
 

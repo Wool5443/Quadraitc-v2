@@ -6,7 +6,7 @@
 
 bool checkSolution(Equation* solution, Equation* testData);
 
-void testAll(const char* testFile)
+void TestAll(const char* testFile)
 {
 	FILE* file = fopen(testFile, "r");
 	myAssertHard(file, ERROR_BAD_FILE);
@@ -42,23 +42,23 @@ void testAll(const char* testFile)
 			break;
 		}
 
-		copyArray(equation.coefficients, testData.coefficients, NUMBER_OF_COEFFICIENTS);
-		solveEquation(&equation);
+		CopyArray(equation.coefficients, testData.coefficients, NUMBER_OF_COEFFICIENTS);
+		SolveEquation(&equation);
 
 		if (checkSolution(&equation, &testData) == 1)
 		{
-			setConsoleColor(stdout, GREEN);
+			SetConsoleColor(stdout, GREEN);
 			printf("Test number %d is successful! %.2f%% of tests have been run!\n", i + 1,
 				(double)(i + 1) / numberOfAllTests * 100);
-			setConsoleColor(stdout, WHITE);
+			SetConsoleColor(stdout, WHITE);
 			numberOfPassedTests++;
 		}
 		else
 		{
-			setConsoleColor(stdout, RED);
+			SetConsoleColor(stdout, RED);
 			printf("Test number %d failed!!!!!!!! %.2f%% of tests have been run!\n", i + 1,
 				(double)(i + 1) / numberOfAllTests * 100);
-			setConsoleColor(stdout, WHITE);
+			SetConsoleColor(stdout, WHITE);
 		}
 	}
 
@@ -66,15 +66,15 @@ void testAll(const char* testFile)
 
 	if (numberOfPassedTests == numberOfAllTests)
 	{
-		setConsoleColor(stdout, GREEN);
+		SetConsoleColor(stdout, GREEN);
 		printf("ALL TESTS ARE WORKING PURRRFECTLY!!!\n");
-		setConsoleColor(stdout, WHITE);
+		SetConsoleColor(stdout, WHITE);
 	}
 	else
 	{
-		setConsoleColor(stdout, RED);
+		SetConsoleColor(stdout, RED);
 		printf("ONLY %.0f%% OF TESTS PASSED!!!\n", (double)numberOfPassedTests / numberOfAllTests * 100);
-		setConsoleColor(stdout, WHITE);
+		SetConsoleColor(stdout, WHITE);
 	}
 }
 
@@ -86,7 +86,7 @@ bool checkSolution(Equation* solution, Equation* testData)
 	if (solution->numberOfRoots != testData->numberOfRoots)
 		return false;
 	for (int i = 0; i < testData->numberOfRoots; i++)
-		if (!isEqual(solution->roots[i], testData->roots[i]))
+		if (!IsEqual(solution->roots[i], testData->roots[i]))
 			return false;
 	return true;
 }
