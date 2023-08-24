@@ -37,6 +37,6 @@ main.exe testing/tests.txt
 The test file should look lke this: \
 <number_of_tests> \
 <coeff1> <coeff2> <coeff3> <number_of_roots> <roots> ### Write <number_of_roots> roots \
-. \
-. \
-. 
+... \
+... \
+... 
