@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <math.h>
-#include "tester.h"
-#include "solve_quadratic.h"
-#include "utils.h"
+#include "tester.hpp"
+#include "solve_quadratic.hpp"
+#include "utils.hpp"
 
 bool checkSolution(Equation* solution, Equation* testData);
 
-int testAll(const char* testFile)
+void testAll(const char* testFile)
 {
 	FILE* file = fopen(testFile, "r");
-	myAssert(file, ERROR_BAD_FILE);
+	myAssertHard(file, ERROR_BAD_FILE);
 
 	int numberOfPassedTests = 0, numberOfAllTests = 0;
 
@@ -76,14 +76,12 @@ int testAll(const char* testFile)
 		printf("ONLY %.0f%% OF TESTS PASSED!!!\n", (double)numberOfPassedTests / numberOfAllTests * 100);
 		setConsoleColor(stdout, WHITE);
 	}
-
-	return EVERYTHING_FINE;
 }
 
 bool checkSolution(Equation* solution, Equation* testData)
 {
-	myAssert(solution, ERROR_NULLPTR);
-	myAssert(testData, ERROR_NULLPTR);
+	myAssertHard(solution, ERROR_NULLPTR);
+	myAssertHard(testData, ERROR_NULLPTR);
 
 	if (solution->numberOfRoots != testData->numberOfRoots)
 		return false;

@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "tester.h"
-#include "solve_quadratic.h"
+#include "tester.hpp"
+#include "solve_quadratic.hpp"
 
 int main(int argc, char* argv[])
 {
