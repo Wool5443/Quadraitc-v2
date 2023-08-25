@@ -3,17 +3,17 @@ IFLAGS=-I./headers/ -I./testing/
 
 all: main.exe
 
-main.exe: main.o solve_quadratic.o utils.o tester.o
+main.exe: obj/main.o obj/solve_quadratic.o obj/utils.o obj/tester.o
 	g++ obj/main.o obj/solve_quadratic.o obj/utils.o obj/tester.o -o main.exe
 
-main.o: main.cpp
+obj/main.o: main.cpp
 	g++ -c $(IFLAGS) $(CFLAGS) main.cpp -o obj/main.o
 
-solve_quadratic.o: src/solve_quadratic.cpp
+obj/solve_quadratic.o: src/solve_quadratic.cpp
 	g++ -c $(IFLAGS) $(CFLAGS) src/solve_quadratic.cpp -o obj/solve_quadratic.o
 
-utils.o: src/utils.cpp
+obj/utils.o: src/utils.cpp
 	g++ -c $(IFLAGS) $(CFLAGS) src/utils.cpp -o obj/utils.o
 
-tester.o: testing/tester.cpp
+obj/tester.o: testing/tester.cpp
 	g++ -c $(IFLAGS) $(CFLAGS) testing/tester.cpp -o obj/tester.o
