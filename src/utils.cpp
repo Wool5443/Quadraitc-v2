@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <ctype.h>
 #include "utils.hpp"
 
 const double ABSOLUTE_TOLERANCE = 1e-5;
@@ -13,8 +14,8 @@ bool IsEqual(const double x1, const double x2)
 
 void CopyArray(double destination[], double source[], int length)
 {
-	myAssertHard(destination, ERROR_NULLPTR);
-	myAssertHard(source, ERROR_NULLPTR);
+	MyAssertHard(destination, ERROR_NULLPTR, );
+	MyAssertHard(source, ERROR_NULLPTR, );
 
 	for (int i = 0; i < length; i++)
 		destination[i] = source[i];
@@ -28,12 +29,12 @@ void ClearBuffer(void)
 bool CheckInput()
 {
 	int c = getchar();
-	while (c == ' ') { c = getchar(); }
+	while (c == ' ' || c == '\t') { c = getchar(); }
 
 	return c == '\n';
 }
 
-void SetConsoleColor(FILE* place, enum Color color)
+void SetConsoleColor(FILE* place, const enum Color color)
 {
 	switch (color)
 	{

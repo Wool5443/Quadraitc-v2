@@ -10,9 +10,9 @@ void solveLinear(Equation* equation);
 
 void SolveEquation(Equation* equation)
 {
-    myAssertHard(equation, ERROR_NULLPTR);
+    MyAssertHard(equation, ERROR_NULLPTR, );
     for (int i = 0; i < NUMBER_OF_COEFFICIENTS; i++)
-        myAssertHard(isfinite(equation->coefficients[i]), ERROR_BAD_NUMBER);
+        MyAssertHard(isfinite(equation->coefficients[i]), ERROR_BAD_NUMBER, );
 
     if (IsEqual(equation->coefficients[0], 0))
         solveLinear(equation);
@@ -67,7 +67,7 @@ void solveLinear(Equation* equation)
 
 void InputEquation(Equation* equation)
 {
-    myAssertHard(equation, ERROR_NULLPTR);
+    MyAssertHard(equation, ERROR_NULLPTR, );
 
     printf("Input the coefficients of the equation: ");
 
@@ -81,7 +81,7 @@ void InputEquation(Equation* equation)
 
 void PrintAnswer(const Equation* equation)
 {
-    myAssertHard(equation, ERROR_NULLPTR);
+    MyAssertHard(equation, ERROR_NULLPTR, );
 
     switch (equation->numberOfRoots)
     {

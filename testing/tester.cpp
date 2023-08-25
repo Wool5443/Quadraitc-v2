@@ -9,7 +9,7 @@ bool checkSolution(Equation* solution, Equation* testData);
 void TestAll(const char* testFile)
 {
 	FILE* file = fopen(testFile, "r");
-	myAssertHard(file, ERROR_BAD_FILE);
+	MyAssertHard(file, ERROR_BAD_FILE, fclose(file));
 
 	int numberOfPassedTests = 0, numberOfAllTests = 0;
 
@@ -80,8 +80,8 @@ void TestAll(const char* testFile)
 
 bool checkSolution(Equation* solution, Equation* testData)
 {
-	myAssertHard(solution, ERROR_NULLPTR);
-	myAssertHard(testData, ERROR_NULLPTR);
+	MyAssertHard(solution, ERROR_NULLPTR, );
+	MyAssertHard(testData, ERROR_NULLPTR, );
 
 	if (solution->numberOfRoots != testData->numberOfRoots)
 		return false;

@@ -9,32 +9,41 @@
 enum Color { RED, GREEN, WHITE };
 
 /**
- * @brief Represents possible error codes for @see myAssertHard()
+ * @brief Represents possible error codes for @see MyAssertHard()
  */
-enum ErrorCode { EVERYTHING_FINE = 0, ERROR_NULLPTR = 100, ERROR_BAD_NUMBER, ERROR_BAD_FILE };
+enum ErrorCode { EVERYTHING_FINE = 0, ERROR_NULLPTR, ERROR_BAD_NUMBER, ERROR_BAD_FILE };
+
+/**
+ * @brief Represtents ErrorCode names
+ */
+static const char* ErrorNames[] = { "OKAY", "ERROR_NULLPTR", "ERROR_BAD_NUMBER", "ERROR_BAD_FILE" };
 
 /**
  * @brief Hard assert which tells the file, function and line where the error occured.
  *
  * @param [in] STATEMENT - the condition to check.
  * @param [in] ERR_CODE - what can happen @see ErrorCode.
+ * @param [in] EXIT_CMD - operation to perform befor exiting the program.
+ *
+ * @note If there is nothing to perform pass nothing.
  */
-#define myAssertHard(STATEMENT, ERR_CODE)                                                                     \
-if (!(STATEMENT))                                                                                             \
-{                                                                                                             \
-    SetConsoleColor(stderr, RED);                                                                             \
-    fprintf(stderr, "ERROR %d in %s in %s in line: %d\n", ERR_CODE, __FILE__, __PRETTY_FUNCTION__, __LINE__); \
-    SetConsoleColor(stderr, WHITE);                                                                           \
-    exit(ERR_CODE);                                                                                           \
+#define MyAssertHard(STATEMENT, ERR_CODE, EXIT_CMD)                                                                     \
+if (!(STATEMENT))                                                                                                   \
+{                                                                                                                   \
+    SetConsoleColor(stderr, RED);                                                                                   \
+    fprintf(stderr, "%s in %s in %s in line: %d\n", ErrorNames[ERR_CODE], __FILE__, __PRETTY_FUNCTION__, __LINE__); \
+    SetConsoleColor(stderr, WHITE);                                                                                 \
+    EXIT_CMD;                                                                                                      \
+    exit(ERR_CODE);                                                                                                 \
 }
 
  /**
   * @brief Finds max of x, y.
   */
-#define max(x, y)                                                                                             \
-({                                                                                                            \
-    typeof(x) _tx = x; typeof(y) _ty = y;                                                                     \
-    _tx > _ty ? _tx : _ty;                                                                                    \
+#define max(x, y)                                                                                                   \
+({                                                                                                                  \
+    typeof(x) _tx = x; typeof(y) _ty = y;                                                                           \
+    _tx > _ty ? _tx : _ty;                                                                                          \
 })
 
   /**
@@ -76,6 +85,6 @@ bool CheckInput(void);
  * @param place - stderr or stdout
  * @param color - @see Color
  */
-void SetConsoleColor(FILE* place, enum Color color);
+void SetConsoleColor(FILE* place, const enum Color color);
 
 #endif
