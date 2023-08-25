@@ -3,6 +3,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <stdio.h>
+
 /**
  * @brief Represents colors for @see SetConsoleColor
  */
