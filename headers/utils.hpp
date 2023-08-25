@@ -16,7 +16,7 @@ enum Color { RED, GREEN, WHITE };
  */
 enum ErrorCode {
   EVERYTHING_FINE = 0, ERROR_NULLPTR, ERROR_BAD_NUMBER, ERROR_BAD_FILE, ERROR_OVERLAP,
-  ERROR_NOT_ENOUGH_MEMORY
+  ERROR_INDEX_OUT_OF_BOUNDS
 };
 
 /**
@@ -24,7 +24,7 @@ enum ErrorCode {
  */
 static const char* ErrorNames[] = { "OKAY", "ERROR_NULLPTR", "ERROR_BAD_NUMBER",
                                     "ERROR_BAD_FILE", "ERROR_OVERLAP",
-                                    "ERROR_NOT_ENOUGH_MEMORY" };
+                                    "ERROR_INDEX_OUT_OF_BOUNDS" };
 
 /**
  * @brief Hard assert which tells the file, function and line where the error occured.
@@ -52,6 +52,12 @@ if (!(STATEMENT))                                                               
 ({                                                                                                                  \
     typeof(x) _tx = x; typeof(y) _ty = y;                                                                           \
     _tx > _ty ? _tx : _ty;                                                                                          \
+})
+
+#define min(x, y)                                                                                                   \
+({                                                                                                                  \
+    typeof(x) _tx = x; typeof(y) _ty = y;                                                                           \
+    _tx < _ty ? _tx : _ty;                                                                                          \
 })
 
   /**
