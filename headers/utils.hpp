@@ -4,6 +4,7 @@
 #define UTILS_H
 
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
  * @brief Represents colors for @see SetConsoleColor
