@@ -2,3 +2,4 @@
 *.json
 *.exe
 *.o
+.Makefile.swp

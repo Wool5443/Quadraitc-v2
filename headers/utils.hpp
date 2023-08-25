@@ -13,12 +13,13 @@ enum Color { RED, GREEN, WHITE };
 /**
  * @brief Represents possible error codes for @see MyAssertHard()
  */
-enum ErrorCode { EVERYTHING_FINE = 0, ERROR_NULLPTR, ERROR_BAD_NUMBER, ERROR_BAD_FILE };
+enum ErrorCode { EVERYTHING_FINE = 0, ERROR_NULLPTR, ERROR_BAD_NUMBER, ERROR_BAD_FILE, ERROR_OVERLAP };
 
 /**
  * @brief Represtents ErrorCode names
  */
-static const char* ErrorNames[] = { "OKAY", "ERROR_NULLPTR", "ERROR_BAD_NUMBER", "ERROR_BAD_FILE" };
+static const char* ErrorNames[] = { "OKAY", "ERROR_NULLPTR", "ERROR_BAD_NUMBER",
+                                    "ERROR_BAD_FILE", "ERROR_OVERLAP" };
 
 /**
  * @brief Hard assert which tells the file, function and line where the error occured.
