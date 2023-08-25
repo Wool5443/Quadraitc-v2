@@ -15,6 +15,5 @@ int main(int argc, char* argv[])
         SolveEquation(&equation);
         PrintAnswer(&equation);
     }
-
     return 0;
 }
