@@ -60,6 +60,8 @@ if (!(STATEMENT))                                                               
     _tx < _ty ? _tx : _ty;                                                                                          \
 })
 
+#define ArrayLength(array) sizeof(array) / sizeof(array[0])
+
   /**
   * @brief Tells if 2 doubles are equal.
   *
