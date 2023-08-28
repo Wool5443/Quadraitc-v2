@@ -31,19 +31,19 @@ static const char* ErrorNames[] = { "OKAY", "ERROR_NULLPTR", "ERROR_BAD_NUMBER",
  *
  * @param [in] STATEMENT - the condition to check.
  * @param [in] ERR_CODE - what can happen @see ErrorCode.
- * @param [in] EXIT_CMD - operation to perform befor exiting the program.
+ * @param [in] EXIT_CMD - operation to perform before exiting the program.
  *
  * @note If there is nothing to perform pass nothing.
  */
 #define MyAssertHard(STATEMENT, ERR_CODE, EXIT_CMD)                                                                     \
 if (!(STATEMENT))                                                                                                   \
-{                                                                                                                   \
+({                                                                                                                   \
     SetConsoleColor(stderr, RED);                                                                                   \
     fprintf(stderr, "%s in %s in %s in line: %d\n", ErrorNames[ERR_CODE], __FILE__, __PRETTY_FUNCTION__, __LINE__); \
     SetConsoleColor(stderr, WHITE);                                                                                 \
     EXIT_CMD;                                                                                                      \
     exit(ERR_CODE);                                                                                                 \
-}
+})
 
  /**
   * @brief Finds max of x, y.
