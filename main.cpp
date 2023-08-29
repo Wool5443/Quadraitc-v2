@@ -2,7 +2,7 @@
 #include "tester.hpp"
 #include "solve_quadratic.hpp"
 
-int main(int argc, char* argv[])
+int main(int argc, const char* argv[])
 {
     if (argc > 1)
     {
